@@ -1,7 +1,7 @@
 // views/notes_view.dart
 import 'package:flutter/material.dart';
 import 'package:noteappy/widgets/customapp.dart';
-import 'package:noteappy/widgets/note_card.dart';
+
 import 'package:noteappy/widgets/notes_builder.dart';
 
 class NotesView extends StatelessWidget {
@@ -24,7 +24,13 @@ class NotesView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return Container();
+              });
+        },
         child: const Icon(Icons.add),
       ),
     );
