@@ -9,8 +9,8 @@ class NotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Padding(
+    return Scaffold(
+      body: const Padding(
         padding: EdgeInsets.all(8.0),
         child: Column(
           children: [
@@ -21,6 +21,11 @@ class NotesView extends StatelessWidget {
             // TODO: Add Add Note Button
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        onPressed: () {},
+        child: const Icon(Icons.add),
       ),
     );
   }
