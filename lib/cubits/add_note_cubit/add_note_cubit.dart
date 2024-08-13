@@ -1,6 +1,7 @@
 // cubits/add_note_cubit/add_note_cubit.dart
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:noteappy/conts/const_value.dart';
 import 'package:noteappy/cubits/add_note_cubit/add_note_state.dart';
@@ -17,6 +18,7 @@ class AddNoteCubit extends Cubit<AddNoteState> {
       emit(AddNoteSuccess());
     } catch (e) {
       emit(AddNoteError(message: e.toString()));
+      debugPrint(e.toString());
     }
   }
 }

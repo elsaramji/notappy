@@ -1,8 +1,12 @@
 // views/notes_view.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:noteappy/cubits/add_note_cubit/add_note_state.dart';
 import 'package:noteappy/widgets/add_note_sheet.dart';
 import 'package:noteappy/widgets/customapp.dart';
 import 'package:noteappy/widgets/notes_builder.dart';
+
+import '../cubits/add_note_cubit/add_note_cubit.dart';
 
 class NotesView extends StatelessWidget {
   const NotesView({super.key});
@@ -10,16 +14,18 @@ class NotesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            CustomAppBar(),
-            // TODO: Add Notes list
-            Expanded(child: NotesBuilder()),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              CustomAppBar(),
+              // TODO: Add Notes list
+              Expanded(child: NotesBuilder()),
 
-            // TODO: Add Add Note Button
-          ],
+              // TODO: Add Add Note Button
+            ],
+          ),
         ),
       ),
       floatingActionButton: AddNoteButton(),
@@ -38,9 +44,10 @@ class AddNoteButton extends StatelessWidget {
       backgroundColor: Colors.blue,
       onPressed: () {
         showModalBottomSheet(
+            isScrollControlled: true,
             context: context,
             builder: (context) {
-              return AddNoteSheet();
+              return const AddNoteSheet();
             });
       },
       child: const Icon(Icons.add),

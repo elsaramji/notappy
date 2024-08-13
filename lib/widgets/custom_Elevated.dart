@@ -1,18 +1,37 @@
+// widgets/custom_Elevated.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:noteappy/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:noteappy/cubits/add_note_cubit/add_note_state.dart';
+import 'package:noteappy/models/note_model.dart';
 
 class CustomElevated extends StatelessWidget {
   const CustomElevated({
     super.key,
     required this.form,
+    required this.title,
+    required this.content,
   });
 
   final GlobalKey<FormState> form;
+  final String title, content;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        if (form.currentState!.validate()) {}
+        if (form.currentState!.validate()) {
+          form.currentState!.save();
+          var notemodel = NoteModel(
+            title: title,
+            content: content,
+            data: DateTime.now().toString(),
+            color: Colors.blue.value,
+          );
+
+          BlocProvider.of<AddNoteCubit>(context).addNote(notemodel);
+        }
       },
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -22,7 +41,10 @@ class CustomElevated extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: const Text(
           "Add",
-          style: TextStyle(fontSize: 20),
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
           textAlign: TextAlign.center,
         ),
       ),
