@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noteappy/cubits/add_note_cubit/add_note_state.dart';
+import 'package:noteappy/cubits/futch_notes_cubit/futch_notes_cubit.dart';
 import 'package:noteappy/widgets/add_note_sheet.dart';
 import 'package:noteappy/widgets/customapp.dart';
 import 'package:noteappy/widgets/notes_builder.dart';
@@ -13,22 +14,25 @@ class NotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              CustomAppBar(),
-              // TODO: Add Notes list
-              Expanded(child: NotesBuilder()),
+    return BlocProvider(
+      create: (context) => FutchNotesCubit(),
+      child: const Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                CustomAppBar(),
+                // TODO: Add Notes list
+                Expanded(child: NotesBuilder()),
 
-              // TODO: Add Add Note Button
-            ],
+                // TODO: Add Add Note Button
+              ],
+            ),
           ),
         ),
+        floatingActionButton: AddNoteButton(),
       ),
-      floatingActionButton: AddNoteButton(),
     );
   }
 }

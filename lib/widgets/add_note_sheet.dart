@@ -8,21 +8,13 @@ import 'package:noteappy/cubits/add_note_cubit/add_note_state.dart';
 import 'package:noteappy/widgets/custom_text_filed.dart';
 
 import '../cubits/add_note_cubit/add_note_cubit.dart';
+import '../models/note_model.dart';
 import 'custom_elevated.dart';
 
-class AddNoteSheet extends StatefulWidget {
+class AddNoteSheet extends StatelessWidget {
   const AddNoteSheet({
     super.key,
   });
-
-  @override
-  State<AddNoteSheet> createState() => _AddNoteSheetState();
-}
-
-class _AddNoteSheetState extends State<AddNoteSheet> {
-  final GlobalKey<FormState> form = GlobalKey();
-  final TextEditingController titelcontroller = TextEditingController(),
-      subtitelcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +35,7 @@ class _AddNoteSheetState extends State<AddNoteSheet> {
           }, builder: (context, stata) {
             return AbsorbPointer(
               absorbing: stata is AddNoteLoading ? true : false,
-              child: AddFormSheet(
-                  form: form,
-                  titelcontroller: titelcontroller,
-                  subtitelcontroller: subtitelcontroller),
+              child: const AddFormSheet(),
             );
           }),
         ),
@@ -55,17 +44,21 @@ class _AddNoteSheetState extends State<AddNoteSheet> {
   }
 }
 
-class AddFormSheet extends StatelessWidget {
+class AddFormSheet extends StatefulWidget {
   const AddFormSheet({
     super.key,
-    required this.form,
-    required this.titelcontroller,
-    required this.subtitelcontroller,
   });
 
-  final GlobalKey<FormState> form;
-  final TextEditingController titelcontroller;
-  final TextEditingController subtitelcontroller;
+  @override
+  State<AddFormSheet> createState() => _AddFormSheetState();
+}
+
+class _AddFormSheetState extends State<AddFormSheet> {
+  final GlobalKey<FormState> form = GlobalKey();
+
+  final TextEditingController titelcontroller = TextEditingController();
+
+  final TextEditingController subtitelcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +76,6 @@ class AddFormSheet extends StatelessWidget {
           ),
           CustomTextFiled(
             controller: titelcontroller,
-            onChanged: (value) {
-              value = titelcontroller.text;
-            },
             valid: vailed,
             hint: "title",
           ),
@@ -94,9 +84,6 @@ class AddFormSheet extends StatelessWidget {
           ),
           CustomTextFiled(
             controller: subtitelcontroller,
-            onChanged: (value) {
-              value = subtitelcontroller.text;
-            },
             valid: vailed,
             hint: "contant",
             maxline: 5,
@@ -104,14 +91,26 @@ class AddFormSheet extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          CustomElevated(
-            form: form,
-            title: titelcontroller.text,
-            content: subtitelcontroller.text,
-          )
+          CustomElevated(onPressed: () => Addbutton(context))
         ],
       ),
     );
+  }
+
+  void Addbutton(BuildContext context) {
+    if (form.currentState!.validate()) {
+      form.currentState!.save();
+      var notemodel = NoteModel(
+        title: titelcontroller.text,
+        content: subtitelcontroller.text,
+        data: DateTime.now().toString(),
+        color: Colors.blue.value,
+      );
+      print("content : ${subtitelcontroller.text}");
+      BlocProvider.of<AddNoteCubit>(context).addNote(notemodel);
+    } else {
+      AutovalidateMode.onUserInteraction;
+    }
   }
 }
 

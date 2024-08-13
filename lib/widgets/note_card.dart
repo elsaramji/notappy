@@ -1,41 +1,55 @@
+// widgets/note_card.dart
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:noteappy/cubits/futch_notes_cubit/futch_notes_cubit.dart';
+import 'package:noteappy/models/note_model.dart';
 
 class NoteCard extends StatelessWidget {
+  final NoteModel note;
   const NoteCard({
+    required this.note,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    print("note.content : ${note.content}");
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Colors.blue,
+        color: Color(note.color),
       ),
-      child: const Padding(
-        padding: EdgeInsets.symmetric(vertical: 48, horizontal: 16),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ListTile(
               contentPadding: EdgeInsets.zero,
               title: Text(
-                "Tast Note",
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                note.title,
+                style: const TextStyle(color: Colors.black, fontSize: 20),
               ),
               subtitle: Text(
-                " If you can think can do it by saramji keep going ",
-                style: TextStyle(color: Colors.black87, fontSize: 20),
+                note.content,
+                style: const TextStyle(color: Colors.black87, fontSize: 20),
               ),
-              trailing: Icon(
-                Icons.delete,
-                color: Colors.black,
+              trailing: IconButton(
+                onPressed: () {
+                  
+                  BlocProvider.of<FutchNotesCubit>(context).fetchnotes();
+                },
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.black,
+                ),
               ),
             ),
             Text(
-              "Mar 21 2003",
-              style: TextStyle(color: Colors.black),
+              note.data,
+              style: const TextStyle(color: Colors.black),
             )
           ],
         ),
