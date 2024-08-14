@@ -1,7 +1,9 @@
 // widgets/add_note_sheet.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:noteappy/cubits/add_note_cubit/add_note_state.dart';
+import 'package:noteappy/cubits/futch_notes_cubit/futch_notes_cubit.dart';
 import 'package:noteappy/widgets/custom_text_filed.dart';
 
 import '../cubits/add_note_cubit/add_note_cubit.dart';
@@ -59,6 +61,7 @@ class _AddFormSheetState extends State<AddFormSheet> {
 
   @override
   Widget build(BuildContext context) {
+    var vaild = BlocProvider.of<FutchNotesCubit>(context).vailed;
     return Form(
       key: form,
       child: Column(
@@ -73,7 +76,7 @@ class _AddFormSheetState extends State<AddFormSheet> {
           ),
           CustomTextFiled(
             controller: titelcontroller,
-            valid: vailed,
+            valid: vaild,
             hint: "title",
           ),
           const SizedBox(
@@ -81,7 +84,7 @@ class _AddFormSheetState extends State<AddFormSheet> {
           ),
           CustomTextFiled(
             controller: subtitelcontroller,
-            valid: vailed,
+            valid: vaild,
             hint: "contant",
             maxline: 5,
           ),
@@ -95,25 +98,20 @@ class _AddFormSheetState extends State<AddFormSheet> {
   }
 
   void Addbutton(BuildContext context) {
+    var data = DateFormat("dd-MM-yyyy").format(DateTime.now());
     if (form.currentState!.validate()) {
       form.currentState!.save();
       var notemodel = NoteModel(
         title: titelcontroller.text,
         content: subtitelcontroller.text,
-        data: DateTime.now().toString(),
+        data: data,
         color: Colors.blue.value,
       );
       print("content : ${subtitelcontroller.text}");
       BlocProvider.of<AddNoteCubit>(context).addNote(notemodel);
+      BlocProvider.of<FutchNotesCubit>(context).fetchnotes();
     } else {
       AutovalidateMode.onUserInteraction;
     }
   }
-}
-
-String? vailed(value) {
-  if (value?.isEmpty ?? true) {
-    return "this required";
-  }
-  return null;
 }

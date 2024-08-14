@@ -10,8 +10,18 @@ import '../../models/note_model.dart';
 class FutchNotesCubit extends Cubit<FutchNotesState> {
   FutchNotesCubit() : super(FutchNotesInitial());
 
-  List<NoteModel> fetchnotes() {
+  String? vailed(value) {
+    if (value?.isEmpty ?? true) {
+      return "this required";
+    }
+    return null;
+  }
+
+  List<NoteModel>? notes;
+
+  fetchnotes() {
     var boxnotes = Hive.box<NoteModel>(ConstKeyword.kbox);
-    return boxnotes.values.toList();
+    notes = boxnotes.values.toList();
+    emit(FutchNotesStorage());
   }
 }

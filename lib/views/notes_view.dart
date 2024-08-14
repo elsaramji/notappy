@@ -1,15 +1,17 @@
 // views/notes_view.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:noteappy/cubits/futch_notes_cubit/futch_notes_cubit.dart';
 import 'package:noteappy/widgets/add_note_sheet.dart';
 import 'package:noteappy/widgets/customapp.dart';
 import 'package:noteappy/widgets/notes_builder.dart';
-
 
 class NotesView extends StatelessWidget {
   const NotesView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<FutchNotesCubit>(context).fetchnotes();
     return const Scaffold(
       body: SafeArea(
         child: Padding(
@@ -19,7 +21,7 @@ class NotesView extends StatelessWidget {
               CustomAppBar(),
               // TODO: Add Notes list
               Expanded(child: NotesBuilder()),
-    
+
               // TODO: Add Add Note Button
             ],
           ),
