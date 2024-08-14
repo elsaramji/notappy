@@ -3,3 +3,5 @@
 class FutchNotesState {}
 
 class FutchNotesInitial extends FutchNotesState {}
+
+class FutchNotesStorage extends FutchNotesState {}

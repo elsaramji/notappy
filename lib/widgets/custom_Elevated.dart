@@ -1,14 +1,11 @@
 // widgets/custom_Elevated.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:noteappy/cubits/add_note_cubit/add_note_cubit.dart';
 
-import 'package:noteappy/models/note_model.dart';
 
 class CustomElevated extends StatelessWidget {
   final Function() onPressed;
-  CustomElevated({
+  const CustomElevated({
     super.key,
     required this.onPressed,
   });

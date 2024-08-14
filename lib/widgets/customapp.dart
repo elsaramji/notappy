@@ -1,6 +1,5 @@
 // widgets/customapp.dart
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -20,7 +19,7 @@ class CustomAppBar extends StatelessWidget {
             "Notes",
             style: TextStyle(fontSize: 22),
           ),
-          Spacer(),
+          const Spacer(),
           Container(
             width: 42,
             height: 42,
