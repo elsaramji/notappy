@@ -20,7 +20,7 @@ class FutchNotesCubit extends Cubit<FutchNotesState> {
   List<NoteModel>? notes;
 
   fetchnotes() {
-    var boxnotes = Hive.box<NoteModel>(ConstKeyword.kbox);
+    Box<NoteModel> boxnotes = Hive.box<NoteModel>(ConstKeyword.kbox);
     notes = boxnotes.values.toList();
     emit(FutchNotesStorage());
   }

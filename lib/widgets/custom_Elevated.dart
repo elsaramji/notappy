@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 
 class CustomElevated extends StatelessWidget {
   final Function() onPressed;
+  final String text;
   const CustomElevated({
     super.key,
     required this.onPressed,
+    required this.text,
   });
 
   @override
@@ -20,8 +22,8 @@ class CustomElevated extends StatelessWidget {
       ),
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: const Text(
-          "Add",
+        child:  Text(
+          text,
           style: TextStyle(
             fontSize: 20,
             color: Colors.white,
