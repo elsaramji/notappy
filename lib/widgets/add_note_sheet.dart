@@ -91,27 +91,15 @@ class _AddFormSheetState extends State<AddFormSheet> {
           const SizedBox(
             height: 20,
           ),
-          CustomElevated(onPressed: () => Addbutton(context))
+          CustomElevated(
+              onPressed: () => BlocProvider.of<AddNoteCubit>(context)
+                  .addNotebutton(
+                      context: context,
+                      titel: titelcontroller.text,
+                      form: form,
+                      content: subtitelcontroller.text))
         ],
       ),
     );
-  }
-
-  void Addbutton(BuildContext context) {
-    var data = DateFormat("dd-MM-yyyy").format(DateTime.now());
-    if (form.currentState!.validate()) {
-      form.currentState!.save();
-      var notemodel = NoteModel(
-        title: titelcontroller.text,
-        content: subtitelcontroller.text,
-        data: data,
-        color: Colors.blue.value,
-      );
-      print("content : ${subtitelcontroller.text}");
-      BlocProvider.of<AddNoteCubit>(context).addNote(notemodel);
-      BlocProvider.of<FutchNotesCubit>(context).fetchnotes();
-    } else {
-      AutovalidateMode.onUserInteraction;
-    }
   }
 }
