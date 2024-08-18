@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noteappy/cubits/futch_notes_cubit/futch_notes_cubit.dart';
+import 'package:noteappy/widgets/color_list.dart';
 import '../cubits/add_note_cubit/add_note_cubit.dart';
 import 'custom_Elevated.dart';
 import 'custom_text_filed.dart';
@@ -54,10 +55,12 @@ class _AddFormSheetState extends State<AddFormSheet> {
           const SizedBox(
             height: 20,
           ),
+          const ColorList(),
           CustomElevated(
               text: "Add",
               onPressed: () => BlocProvider.of<AddNoteCubit>(context)
                   .addNotebutton(
+                      color: Colors.blue,
                       context: context,
                       titel: titelcontroller.text,
                       form: form,

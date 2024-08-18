@@ -29,6 +29,7 @@ class AddNoteCubit extends Cubit<AddNoteState> {
   void addNotebutton(
       {required BuildContext context,
       required String titel,
+      required Color color,
       required GlobalKey<FormState> form,
       required String content}) {
     var data = DateFormat("dd-MM-yyyy").format(DateTime.now());
@@ -38,7 +39,7 @@ class AddNoteCubit extends Cubit<AddNoteState> {
         title: titel,
         content: content,
         data: data,
-        color: Colors.blue.value,
+        color: color.value,
       );
       print("content : ${content}");
       BlocProvider.of<AddNoteCubit>(context).addNote(notemodel);
