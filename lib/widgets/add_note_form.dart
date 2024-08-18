@@ -60,7 +60,7 @@ class _AddFormSheetState extends State<AddFormSheet> {
               text: "Add",
               onPressed: () => BlocProvider.of<AddNoteCubit>(context)
                   .addNotebutton(
-                      color: Colors.blue,
+                      color: BlocProvider.of<AddNoteCubit>(context).color,
                       context: context,
                       titel: titelcontroller.text,
                       form: form,

@@ -1,7 +1,11 @@
 // widgets/color_list.dart
 
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:noteappy/conts/const_value.dart';
+import 'package:noteappy/cubits/add_note_cubit/add_note_cubit.dart';
 
 class ColorItme extends StatelessWidget {
   final bool isAcitev;
@@ -27,43 +31,37 @@ class ColorItme extends StatelessWidget {
 }
 
 class ColorList extends StatefulWidget {
-  const ColorList({super.key});
+  const ColorList({
+    super.key,
+  });
 
   @override
   State<ColorList> createState() => _ColorListState();
 }
 
 class _ColorListState extends State<ColorList> {
-  int selectedIndex = 0;
-  List<Color> colors = [
-    Colors.blue,
-    Colors.red,
-    Colors.yellow,
-    Colors.green,
-    Colors.purple,
-    Colors.orange,
-    Colors.pink,
-    Colors.brown,
-  ];
+  @override
   @override
   Widget build(BuildContext context) {
+    int selectedIndex = 0;
     return SizedBox(
       height: 60,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: colors.length,
+        itemCount: kcolors.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
               setState(() {
                 selectedIndex = index;
+                BlocProvider.of<AddNoteCubit>(context).color = kcolors[index];
               });
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ColorItme(
                 isAcitev: selectedIndex == index,
-                color: colors[index],
+                color: kcolors[index],
               ),
             ),
           );

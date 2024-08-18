@@ -12,11 +12,12 @@ import 'package:noteappy/models/note_model.dart';
 import '../futch_notes_cubit/futch_notes_cubit.dart';
 
 class AddNoteCubit extends Cubit<AddNoteState> {
+  Color color = Colors.blue;
   AddNoteCubit() : super(AddNoteInitial());
-
   void addNote(NoteModel note) async {
     emit(AddNoteLoading());
     try {
+      note.color = color.value;
       var notebox = Hive.box<NoteModel>(ConstKeyword.kbox);
       await notebox.add(note);
       emit(AddNoteSuccess());
