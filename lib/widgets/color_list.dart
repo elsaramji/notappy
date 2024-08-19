@@ -40,10 +40,15 @@ class ColorList extends StatefulWidget {
 }
 
 class _ColorListState extends State<ColorList> {
+  late int selectedIndex;
   @override
+  void initState() {
+    super.initState();
+    selectedIndex = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = 0;
     return SizedBox(
       height: 60,
       child: ListView.builder(

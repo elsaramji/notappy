@@ -62,9 +62,7 @@ class _EiditNoteSheetState extends State<EiditNoteSheet> {
           const SizedBox(
             height: 20,
           ),
-          const ColorList(
-           
-          ),
+          const ColorList(),
           CustomElevated(
               text: "Eidit",
               onPressed: () {

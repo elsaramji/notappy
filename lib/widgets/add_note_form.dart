@@ -1,6 +1,7 @@
 // widgets/add_note_form.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:noteappy/conts/const_value.dart';
 import 'package:noteappy/cubits/futch_notes_cubit/futch_notes_cubit.dart';
 import 'package:noteappy/widgets/color_list.dart';
 import '../cubits/add_note_cubit/add_note_cubit.dart';
